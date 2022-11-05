@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import { Section, Card, Gradient } from './styles';
 
 function Popular() {
   const [popular, setPopular] = useState([]);
@@ -12,7 +13,7 @@ function Popular() {
 
   const url = 'https://api.spoonacular.com/recipes/random?apiKey=';
   const getPopular = async () => {
-    // free plan only allows 150 requests per day, so we will save data to local storage.
+    // free plan only allows 150 requests per day, so we will save data to localStorage.
     const checkPopularStorage = localStorage.getItem('popular');
     if (checkPopularStorage) {
       setPopular(JSON.parse(checkPopularStorage));
@@ -23,7 +24,7 @@ function Popular() {
       const data = await response.json();
       setPopular(data.recipes);
       localStorage.setItem('popular', JSON.stringify(data.recipes));
-      console.log(data.recipes);
+      console.log('Popular', data.recipes);
     }
   };
 
@@ -54,48 +55,5 @@ function Popular() {
     </Section>
   );
 }
-
-// styles
-const Section = styled.section`
-  margin: 4rem 0;
-`;
-
-const Card = styled.div`
-  min-height: 25rem;
-  border-radius: 2rem;
-  overflow: hidden;
-  position: relative;
-
-  p {
-    position: absolute;
-    z-index: 3;
-    left: 50%;
-    bottom: 0%;
-    transform: translate(-50%, 0);
-    color: #fff;
-    width: 100%;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.2rem;
-    height: 40%;
-  }
-
-  img {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 2rem;
-  }
-`;
-
-const Gradient = styled.div`
-  position: absolute;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
-`;
 
 export default Popular;

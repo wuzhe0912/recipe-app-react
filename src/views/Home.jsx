@@ -4,7 +4,7 @@ import Popular from '../components/Popular';
 
 function Home() {
   return (
-    <div>
+    <div className='home-wrapper'>
       <Veggie />
       <Popular />
     </div>
