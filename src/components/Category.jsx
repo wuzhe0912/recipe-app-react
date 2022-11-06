@@ -7,19 +7,19 @@ import { NavLink } from 'react-router-dom';
 function Category() {
   const [categories] = useState([
     {
-      name: 'pizza',
-      icon: <FaPizzaSlice />,
-    },
-    {
-      name: 'burger',
-      icon: <FaHamburger />,
-    },
-    {
-      name: 'noodles',
+      name: 'Japanese',
       icon: <GiNoodles />,
     },
     {
-      name: 'chinese',
+      name: 'Italian',
+      icon: <FaPizzaSlice />,
+    },
+    {
+      name: 'American',
+      icon: <FaHamburger />,
+    },
+    {
+      name: 'Korean',
       icon: <GiChopsticks />,
     },
   ]);
@@ -29,10 +29,10 @@ function Category() {
       {categories.map((category) => {
         return (
           <li key={category.name}>
-            <NavLink to={`/cuisine/${category.name}`}>
+            <SLink to={`/cuisine/${category.name}`}>
               <span>{category.icon}</span>
               <h4>{category.name}</h4>
-            </NavLink>
+            </SLink>
           </li>
         );
       })}
@@ -44,6 +44,36 @@ const List = styled.ul`
   display: flex;
   justify-content: center;
   margin: 2rem 0;
+`;
+
+const SLink = styled(NavLink)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: linear-gradient(35deg, #494949, #313131);
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 2rem;
+  transform: scale(0.8);
+  transition: all 0.3s ease-in-out;
+
+  h4 {
+    color: #fff;
+    font-size: 0.8rem;
+  }
+
+  svg {
+    color: #fff;
+    font-size: 1.5rem;
+  }
+
+  &.active {
+    background: linear-gradient(to right, #f83600, #f9d423);
+  }
 `;
 
 export default Category;
