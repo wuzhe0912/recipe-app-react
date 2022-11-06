@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Section, Card, Gradient } from './styles';
 
 function Popular() {
@@ -24,7 +25,6 @@ function Popular() {
       const data = await response.json();
       setPopular(data.recipes);
       localStorage.setItem('popular', JSON.stringify(data.recipes));
-      console.log('Popular', data.recipes);
     }
   };
 
@@ -44,9 +44,17 @@ function Popular() {
           return (
             <SplideSlide key={recipe.id}>
               <Card>
-                <p>{recipe.title}</p>
-                <img src={recipe.image} alt={recipe.title} />
-                <Gradient />
+                <Link to={`/recipe/${recipe.id}`}>
+                  <p>{recipe.title}</p>
+                  <motion.img
+                    src={recipe.image}
+                    alt={recipe.title}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                  />
+                  <Gradient />
+                </Link>
               </Card>
             </SplideSlide>
           );

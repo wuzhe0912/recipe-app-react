@@ -22,7 +22,7 @@ function Search() {
           }}
           value={search}
           type='text'
-          placeholder='Type Something Food!'
+          placeholder='Try Type Some Food!'
         />
       </div>
     </FormStyle>

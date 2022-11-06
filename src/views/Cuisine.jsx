@@ -5,11 +5,11 @@ import styled from 'styled-components';
 
 function Cuisine() {
   const [cuisines, setCuisines] = useState([]);
-  let params = useParams();
+  const { type } = useParams();
 
   useEffect(() => {
-    getCuisine(params.type);
-  }, [params.type]);
+    getCuisine(type);
+  }, [type]);
 
   const url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=';
   const getCuisine = async (name) => {
@@ -24,12 +24,16 @@ function Cuisine() {
       const data = await response.json();
       setCuisines(data.results);
       localStorage.setItem(name, JSON.stringify(data.results));
-      console.log('Cuisine', cuisines);
     }
   };
 
   return (
-    <Grid>
+    <Grid
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      exit={{ opacity: 0 }}
+    >
       {cuisines.map((cuisine) => {
         return (
           <Card key={cuisine.id}>
@@ -50,7 +54,7 @@ function Cuisine() {
   );
 }
 
-const Grid = styled.div`
+const Grid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 3rem;

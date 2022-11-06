@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 function SearchResult() {
   const [searchResult, setSearchResult] = useState([]);
-  let params = useParams();
+  const { search } = useParams();
 
   useEffect(() => {
-    getSearchResult(params.search);
-  }, [params.search]);
+    getSearchResult(search);
+  }, [search]);
 
   const url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=';
   const getSearchResult = async (name) => {
@@ -24,8 +25,16 @@ function SearchResult() {
       {searchResult.map((result) => {
         return (
           <Card key={result.id}>
-            <img src={result.image} alt={result.title} />
-            <h4>{result.title}</h4>
+            <Link to={`/recipe/${result.id}`}>
+              <motion.img
+                src={result.image}
+                alt={result.title}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+              />
+              <h4>{result.title}</h4>
+            </Link>
           </Card>
         );
       })}
